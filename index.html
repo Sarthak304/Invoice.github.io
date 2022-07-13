@@ -2,6 +2,10 @@
 <html>
   <head>
     <style>
+      table {
+        border-collapse: collapse;
+        width: 100%;
+      }
       table,
       td {
         border: 1px none black;
@@ -14,7 +18,12 @@
   </head>
   <body style="padding: 0% 20% 0% 20%">
     <div style="border: 1px solid black; padding: 2%">
-      <p style="text-align: center; font-size: 50px">Aggarwal shoes house</p>
+      <div style="padding: 2%;">
+        <P style="float:left">GSTIN : 09APJPK4852L1ZC</P>
+        <P style="float:left;">TAX INVOICE</P>
+        <P style="float:right">Mob.:9891029095</P>
+      </div>
+      <p style="text-align: center; font-size: 50px">Aggarwal shoes</p>
       <!-- Name: <input type="number" id="myText" /> -->
       <div style="float: right">
         <button onclick="myCreateFunction()">Add item</button>
@@ -30,19 +39,20 @@
       <div style="padding: 0.8%">
         <div><label>Quantity:</label></div>
 
-        <input type="number" id="Quantity" />
+        <input type="number" value=1 id="Quantity" />
       </div>
       <div style="padding: 0.8%">
         <div><label>Single piece price:</label></div>
         <input type="number" id="piece" />
       </div>
 
-      <table id="myTable" style="border-collapse: collapse">
+      <table id="myTable">
         <tr>
-          <td style="border: 1px solid black">S.NO</td>
-          <td style="border: 1px solid black">Product Name1</td>
-          <td style="border: 1px solid black">Quanlity</td>
-          <td style="border: 1px solid black">Total amount</td>
+          <td style="border: 1px solid black;width:10%">S.NO</td>
+          <td style="border: 1px solid black;width:50%">Product Name</td>
+          <td style="border: 1px solid black;width:13%">Quanlity</td>
+          <td style="border: 1px solid black;width:13%">Price</td>
+          <td style="border: 1px solid black;width:14%">Total amount</td>
         </tr>
       </table>
       <p id="demo"></p>
@@ -62,18 +72,20 @@
           var row = table.insertRow();
           var cell1 = row.insertCell(0);
           var cell2 = row.insertCell(1);
-          var cell3 = row.insertCell(2);
+          var cell3 = row.insertCell(2);          
           var cell4 = row.insertCell(3);
+          var cell5 = row.insertCell(4);
           cell1.innerHTML = i;
           var totalPrice =
             document.getElementById("piece").value *
             document.getElementById("Quantity").value;
           cell2.innerHTML = document.getElementById("product").value;
           cell3.innerHTML = document.getElementById("Quantity").value;
-          cell4.innerHTML = totalPrice;
+          cell4.innerHTML = document.getElementById("piece").value;
+          cell5.innerHTML = totalPrice;
           i++;
           document.getElementById("piece").value = "";
-          document.getElementById("Quantity").value = "";
+          document.getElementById("Quantity").value = 1;
           document.getElementById("product").value = "";
           totalAmount = totalAmount + totalPrice;
 
@@ -81,6 +93,9 @@
           console.log(typeof totalstring);
           document.getElementById("demo").innerHTML =
             "Total Amout to pay :" + totalAmount;
+        } else {
+          console.log(" in else");
+          window.alert("enter price or quantity");
         }
       }
 
@@ -91,6 +106,7 @@
         if (indexNO != "" && indexNO != 0) {
           document.getElementById("myTable").deleteRow(indexNO);
         } else {
+          console.log(" in else");
           window.alert("enter valid number of item");
         }
       }
