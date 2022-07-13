@@ -16,50 +16,63 @@
       }
     </style>
   </head>
-  <body style="padding: 0% 20% 0% 20%">
+  <body style="padding: 0% 20% 0% 20%" onload="myFunction()">
     <div style="border: 1px solid black; padding: 2%">
       <div style="padding: 2%;">
         <P style="float:left">GSTIN : 09APJPK4852L1ZC</P>
-        <P style="float:left;">TAX INVOICE</P>
+        <P style="float:left;padding-left:10%">TAX INVOICE</P>
         <P style="float:right">Mob.:9891029095</P>
       </div>
       <p style="text-align: center; font-size: 50px">Aggarwal shoes</p>
-      <!-- Name: <input type="number" id="myText" /> -->
-      <div style="float: right">
-        <button onclick="myCreateFunction()">Add item</button>
-        <!-- <button onclick="myDeleteFunction()">Delete row</button> -->
-        <button onclick="myPrintFunction()">Print</button>
-      </div>
-      <br />
+
+
       <div style="padding: 0.8%">
-        <div><label>Product Name:</label></div>
+        <div style="float: right">
+          <button onclick="myCreateFunction()">Add item</button>
+          <!-- <button onclick="myDeleteFunction()">Delete row</button> -->
+          <button onclick="myPrintFunction()">Print</button>
+        </div>
 
-        <input type="text" id="product" />
+        <label for="cars">Payment Option:</label>
+        <select name="cars" id="cars">
+          <option value="Cash">Cash</option>
+          <option value="UPI">UPI</option>
+          <option value="Card">Card</option>
+          <option value="Cheque">cheque</option>
+        </select>
+        <br/>
+          <p id="DateType"></p>
+        </div>
+
+        <div style="padding: 0.8%">
+          <div><label>Product Name:</label></div>
+
+          <input type="text" id="product" />
+        </div>
+        <div style="padding: 0.8%">
+          <div><label>Quantity:</label></div>
+
+          <input type="number" value=1 id="Quantity" />
+        </div>
+        <div style="padding: 0.8%">
+          <div><label>Single piece price:</label></div>
+          <input type="number" id="piece" />
+        </div>
+        <div id="PrintData">
+          <table id="myTable">
+            <tr>
+              <td style="border: 1px solid black;width:10%">S.NO</td>
+              <td style="border: 1px solid black;width:50%">Product Name</td>
+              <td style="border: 1px solid black;width:13%">Quanlity</td>
+              <td style="border: 1px solid black;width:13%">Price</td>
+              <td style="border: 1px solid black;width:14%">Total amount</td>
+            </tr>
+          </table>
+          <p id="demo"></p>
+          <br />
+        </div>
       </div>
-      <div style="padding: 0.8%">
-        <div><label>Quantity:</label></div>
-
-        <input type="number" value=1 id="Quantity" />
-      </div>
-      <div style="padding: 0.8%">
-        <div><label>Single piece price:</label></div>
-        <input type="number" id="piece" />
-      </div>
-
-      <table id="myTable">
-        <tr>
-          <td style="border: 1px solid black;width:10%">S.NO</td>
-          <td style="border: 1px solid black;width:50%">Product Name</td>
-          <td style="border: 1px solid black;width:13%">Quanlity</td>
-          <td style="border: 1px solid black;width:13%">Price</td>
-          <td style="border: 1px solid black;width:14%">Total amount</td>
-        </tr>
-      </table>
-      <p id="demo"></p>
-      <br />
-    </div>
-
-    <script>
+      <script>
       var i = 1;
       var totalAmount = 0;
       function myCreateFunction() {
@@ -98,7 +111,13 @@
           window.alert("enter price or quantity");
         }
       }
-
+      function myFunction() {
+        var today = new Date();
+        var dateOftoday = today.getDate()+'-'+(today.getMonth()+1)+'-'+today.getFullYear();
+       
+var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+        document.getElementById("DateType").innerHTML = "Date:"+dateOftoday+" "+time;
+      }
       function myDeleteFunction() {
         var indexNO = document.getElementById("myText").value;
         document.getElementById("myText").value = "";
@@ -114,5 +133,5 @@
         window.print();
       }
     </script>
-  </body>
-</html>
+    </body>
+  </html>
