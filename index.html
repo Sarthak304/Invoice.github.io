@@ -1,142 +1,184 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <style>
-      table {
-        border-collapse: collapse;
-        width: 100%;
-      }
-      table,
-      td {
-        border: 1px none black;
-      }
-      table,
-      td {
-        padding: 10px;
-      }
-    </style>
-  </head>
-  <body style="padding: 0% 20% 0% 20%" onload="myFunction()">
-    <div style="border: 1px solid black; padding: 2%">
-      <div style="padding: 2%;">
-        <P style="float:left">GSTIN : 09APJPK4852L1ZC</P>
-        <P style="float:left;padding-left:10%">TAX INVOICE</P>
-        <P style="float:right">Mob.:9891029095</P>
+
+<head>
+
+  <!-- Include Bootstrap for styling -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" />
+
+  <style>
+    .qr-code {
+      max-width: 200px;
+      margin: 100px;
+    }
+  </style>
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    table,
+    td {
+      border: 1px none black;
+    }
+
+    table,
+    td {
+      padding: 10px;
+    }
+  </style>
+</head>
+
+<body style="padding: 0% 20% 0% 20%" onload="myFunction()">
+
+
+
+
+  <div style="border: 1px solid black; padding: 2%">
+    <div style="padding: 2%;">
+      <P style="float:left">GSTIN : 09APJPK4852L1ZC</P>
+      <P style="float:left;padding-left:10%">TAX INVOICE</P>
+      <P style="float:right">Mob.:9891029095</P>
+    </div>
+    <p style="text-align: center; font-size: 50px">Aggarwal shoes</p>
+
+
+    <div style="padding: 0.8%">
+      <div style="float: right">
+        <button onclick="myCreateFunction()">Add item</button>
+        <!-- <button onclick="myDeleteFunction()">Delete row</button> -->
+        <button onclick="myPrintFunction()">Print</button>
       </div>
-      <p style="text-align: center; font-size: 50px">Aggarwal shoes</p>
 
+      <label for="cars">Payment Option:</label>
+      <select name="cars" id="cars">
+        <option value="Cash">Cash</option>
+        <option value="UPI">UPI</option>
+        <option value="Card">Card</option>
+        <option value="Cheque">cheque</option>
+      </select>
+      <br />
+      <p id="DateType"></p>
+    </div>
 
-      <div style="padding: 0.8%">
-        <div style="float: right">
-          <button onclick="myCreateFunction()">Add item</button>
-          <!-- <button onclick="myDeleteFunction()">Delete row</button> -->
-          <button onclick="myPrintFunction()">Print</button>
-        </div>
+    <div style="padding: 0.8%">
+      <div><label>Product Name:</label></div>
 
-        <label for="cars">Payment Option:</label>
-        <select name="cars" id="cars">
-          <option value="Cash">Cash</option>
-          <option value="UPI">UPI</option>
-          <option value="Card">Card</option>
-          <option value="Cheque">cheque</option>
-        </select>
-        <br/>
-          <p id="DateType"></p>
-        </div>
+      <input type="text" id="product" />
+    </div>
+    <div style="padding: 0.8%">
+      <div><label>Quantity:</label></div>
 
-        <div style="padding: 0.8%">
-          <div><label>Product Name:</label></div>
-
-          <input type="text" id="product" />
-        </div>
-        <div style="padding: 0.8%">
-          <div><label>Quantity:</label></div>
-
-          <input type="number" value=1 id="Quantity" />
-        </div>
-        <div style="padding: 0.8%">
-          <div><label>Single piece price:</label></div>
-          <input type="number" id="piece" />
-        </div>
-        <div id="PrintData" style="border:1px solid black;">
-          <table id="myTable">
-            <tr>
-              <td style="border-style: solid;border-width: 0px 1px 1px
+      <input type="number" value=1 id="Quantity" />
+    </div>
+    <div style="padding: 0.8%">
+      <div><label>Single piece price:</label></div>
+      <input type="number" id="piece" />
+    </div>
+    <div id="PrintData" style="border:1px solid black;">
+      <table id="myTable">
+        <tr>
+          <td style="border-style: solid;border-width: 0px 1px 1px
                 0px;width:10%">S.NO</td>
-              <td style="border-style: solid;border-width: 0px 1px 1px
+          <td style="border-style: solid;border-width: 0px 1px 1px
                 0px;width:50%">Product Name</td>
-              <td style="border-style: solid;border-width: 0px 1px 1px
+          <td style="border-style: solid;border-width: 0px 1px 1px
                 0px;width:13%">Quanlity</td>
-              <td style="border-style: solid;border-width: 0px 1px 1px
+          <td style="border-style: solid;border-width: 0px 1px 1px
                 0px;width:13%">Price</td>
-              <td style="border-style: solid;border-width: 0px 0px 1px
+          <td style="border-style: solid;border-width: 0px 0px 1px
                 0px;width:14%">Total amount</td>
-            </tr>
-          </table>
-          <p style="float:right;" id="demo"></p>
-          <br />
-        </div>
-      </div>
-      <script>
-      var i = 1;
-      var totalAmount = 0;
-      function myCreateFunction() {
-        var table = document.getElementById("myTable");
-        console.log("table " + i);
-        if (
-          document.getElementById("piece").value != "" &&
-          document.getElementById("Quantity").value != ""
-        ) {
-          var row = table.insertRow();
-          var cell1 = row.insertCell(0);
-          var cell2 = row.insertCell(1);
-          var cell3 = row.insertCell(2);          
-          var cell4 = row.insertCell(3);
-          var cell5 = row.insertCell(4);
-          cell1.innerHTML = i;
-          var totalPrice =
-            document.getElementById("piece").value *
-            document.getElementById("Quantity").value;
-          cell2.innerHTML = document.getElementById("product").value;
-          cell3.innerHTML = document.getElementById("Quantity").value;
-          cell4.innerHTML = document.getElementById("piece").value;
-          cell5.innerHTML = totalPrice;
-          i++;
-          document.getElementById("piece").value = "";
-          document.getElementById("Quantity").value = 1;
-          document.getElementById("product").value = "";
-          totalAmount = totalAmount + totalPrice;
+        </tr>
+      </table>
+      <p style="float:right;" id="demo"></p>
+      <br />
+    </div>
+    <div class="text-center">
 
-          var totalstring = totalAmount.toString();
-          console.log(typeof totalstring);
-          document.getElementById("demo").innerHTML =
-            "Total Amout to pay :" + totalAmount;
-        } else {
-          console.log(" in else");
-          window.alert("enter price or quantity");
-        }
+      <!-- Get a Placeholder image initially,
+      this will change according to the
+      data entered later -->
+      <img src="https://chart.googleapis.com/chart?cht=qr&chl=Hello+World&chs=160x160&chld=L|0"
+        class="qr-code img-thumbnail img-responsive" />
+    </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.5.1.js">
+  </script>
+  <script>
+    var i = 1;
+    var totalAmount = 0;
+    function myCreateFunction() {
+      var table = document.getElementById("myTable");
+      console.log("table " + i);
+      if (
+        document.getElementById("piece").value != "" &&
+        document.getElementById("Quantity").value != ""
+      ) {
+        var row = table.insertRow();
+        var cell1 = row.insertCell(0);
+        var cell2 = row.insertCell(1);
+        var cell3 = row.insertCell(2);
+        var cell4 = row.insertCell(3);
+        var cell5 = row.insertCell(4);
+        cell1.innerHTML = i;
+        var totalPrice =
+          document.getElementById("piece").value *
+          document.getElementById("Quantity").value;
+        cell2.innerHTML = document.getElementById("product").value;
+        cell3.innerHTML = document.getElementById("Quantity").value;
+        cell4.innerHTML = document.getElementById("piece").value;
+        cell5.innerHTML = totalPrice;
+        i++;
+        document.getElementById("piece").value = "";
+        document.getElementById("Quantity").value = 1;
+        document.getElementById("product").value = "";
+        totalAmount = totalAmount + totalPrice;
+
+        var totalstring = totalAmount.toString();
+        console.log(typeof totalstring);
+        document.getElementById("demo").innerHTML =
+          "Total Amout to pay :" + totalAmount;
+        var stringtemp = "Total Amout to pay : " + totalAmount;
+        let finalURL =
+          'https://chart.googleapis.com/chart?cht=qr&chl=' +
+          htmlEncode(stringtemp) +
+          '&chs=160x160&chld=L|0'
+
+        $('.qr-code').attr('src', finalURL);
+
+
+      } else {
+        console.log(" in else");
+        window.alert("enter price or quantity");
       }
-      function myFunction() {
-        var today = new Date();
-        var dateOftoday = today.getDate()+'-'+(today.getMonth()+1)+'-'+today.getFullYear();
-       
-var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-        document.getElementById("DateType").innerHTML = "Date:"+dateOftoday+" "+time;
+    }
+    function htmlEncode(value) {
+      return $('<div/>').text(value)
+        .html();
+    }
+    function myFunction() {
+      var today = new Date();
+      var dateOftoday = today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
+
+      var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+      document.getElementById("DateType").innerHTML = "Date:" + dateOftoday + " " + time;
+    }
+    function myDeleteFunction() {
+      var indexNO = document.getElementById("myText").value;
+      document.getElementById("myText").value = "";
+      console.log("indexNO :: " + indexNO);
+      if (indexNO != "" && indexNO != 0) {
+        document.getElementById("myTable").deleteRow(indexNO);
+      } else {
+        console.log(" in else");
+        window.alert("enter valid number of item");
       }
-      function myDeleteFunction() {
-        var indexNO = document.getElementById("myText").value;
-        document.getElementById("myText").value = "";
-        console.log("indexNO :: " + indexNO);
-        if (indexNO != "" && indexNO != 0) {
-          document.getElementById("myTable").deleteRow(indexNO);
-        } else {
-          console.log(" in else");
-          window.alert("enter valid number of item");
-        }
-      }
-      function myPrintFunction() {
-        window.print();
-      }
-    </script>
-    </body>
-  </html>
+    }
+    function myPrintFunction() {
+      window.print();
+    }
+  </script>
+</body>
+
+</html>
